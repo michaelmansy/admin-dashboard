@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import {ThemeToggler} from "./ThemeToggler";
+
 
 export default function Navbar(){
     return (
@@ -22,9 +24,10 @@ export default function Navbar(){
                 <Image src={logo} alt="Logo" width={40} height={50} />
             </Link>
 
-            
-
-            <DropdownMenu>
+            {/* Wrap a div around the avatar and make it flex to place the ThemeToggler */}
+            <div className="flex items-center">
+                <ThemeToggler />
+                <DropdownMenu>
                 <DropdownMenuTrigger render={<Button variant="outline" />}>
                     <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -48,6 +51,8 @@ export default function Navbar(){
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
                 </DropdownMenu>
+            </div>
+            
         </div>
     )
 }
