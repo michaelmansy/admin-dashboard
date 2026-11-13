@@ -1,5 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+// bring the login form and register form components here
+import LoginForm from "@/components/auth/LoginForm"
+import RegisterForm from "@/components/auth/RegisterForm"
+
 export default function AuthTabs() {
     return (
         <Tabs defaultValue="login" className="w-[400px]">
@@ -7,8 +11,12 @@ export default function AuthTabs() {
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="register">Register</TabsTrigger>
             </TabsList>
-            <TabsContent value="login">Login </TabsContent>
-            <TabsContent value="register">Register</TabsContent>
+            <TabsContent value="login">
+                <LoginForm />
+            </TabsContent>
+            <TabsContent value="register">
+                <RegisterForm />
+            </TabsContent>
         </Tabs>
     )
 }
