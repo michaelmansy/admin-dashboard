@@ -3,7 +3,7 @@ import {Post} from '@/types/posts'
 const posts: Post[] = [
     {
         id: '1',
-        title: 'General',
+        title: 'General Test1',
         body: 'General Knowledge',
         author: 'Billboard',
         date: '2026-06-01',
