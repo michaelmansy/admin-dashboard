@@ -6,6 +6,9 @@ import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
 
+import BackButton from "@/components/BackButton";
+
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -43,13 +46,20 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+interface BugReportFormProps {
+  post?: {
+    title: string;
+    body?: string;
+  };
+}
+
 // ✅ Changed from 'export function BugReportForm()' to 'export default function BugReportForm()'
-export default function BugReportForm() {
+export default function BugReportForm({ post }: BugReportFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      body: "",
+      title: post?.title || "",
+      body: post?.body || "",
     },
   })
 
@@ -74,6 +84,7 @@ export default function BugReportForm() {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
+      <BackButton text="Back to Dashboard" link="/" />
       <Card className="w-full sm:max-w-md mx-auto">
         <CardHeader>
           {/* <CardTitle>Bug Report</CardTitle>
@@ -90,13 +101,13 @@ export default function BugReportForm() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor="form-rhf-demo-title">
-                      Bug Title
+                       Title
                     </FieldLabel>
                     <Input
                       {...field}
                       id="form-rhf-demo-title"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Enter Title" {...field}
+                      placeholder={post?.title}
                       autoComplete="off"
                     />
                     {fieldState.invalid && (
@@ -118,7 +129,7 @@ export default function BugReportForm() {
                       <InputGroupTextarea
                         {...field}
                         id="form-rhf-demo-body"
-                        placeholder="I'm having an issue with the login button on mobile."
+                        placeholder={post?.body}
                         rows={6}
                         className="min-h-24 resize-none"
                         aria-invalid={fieldState.invalid}
@@ -129,10 +140,7 @@ export default function BugReportForm() {
                         </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
-                    <FieldDescription>
-                      Include steps to reproduce, expected behavior, and what
-                      actually happened.
-                    </FieldDescription>
+                    
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -145,15 +153,16 @@ export default function BugReportForm() {
         </CardContent>
         <CardFooter>
           <Field orientation="horizontal">
-            <Button type="button" variant="outline" onClick={() => form.reset()}>
-              Reset
-            </Button>
             <Button type="submit" form="form-rhf-demo">
               Submit
             </Button>
           </Field>
         </CardFooter>
       </Card>
+
+      
     </div>
+
+    
   )
 }
